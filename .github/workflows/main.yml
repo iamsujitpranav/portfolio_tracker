@@ -22,7 +22,12 @@ jobs:
       run: |
         gem install bundler
         bundle install
-    - name: Set up credentials
-      run: cp config/master.key config/credentials.yml.enc        
+    - name: Create creds and  master.key
+      run: |
+        echo "$RAILS_MASTER_KEY" > config/master.key
+        chmod 600 config/master.key
+        openssl aes-256-cbc -K ${{ secrets.DECRYPT_KEY }} -iv ${{ secrets.DECRYPT_IV }} -in config/credentials.yml.enc -out config/credentials.yml -d
+    # - name: Set up credentials
+      # run: cp config/master.key config/credentials.yml.enc        
     - name: Run tests
       run: bundle exec rails rswag:specs:swaggerize  # Replace with your test command
