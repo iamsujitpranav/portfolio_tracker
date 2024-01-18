@@ -1,0 +1,258 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      X-CSRF-Token: VETbXiot3J5bZ1Fbqva_R6QbkfkChUZZEritGge4leo
+paths:
+  "/api/v1/portfolios/{id}":
+    get:
+      summary: Fetches a portfolio
+      tags:
+      - Portfolio
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Bearer Token
+        required: true
+        schema:
+          type: string
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: portfolio found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  Authorization:
+                    type: string
+                required:
+                - id
+                - Authorization
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  Authorization:
+                    type: string
+                required:
+                - id
+                - Authorization
+        '404':
+          description: Portfolio not found
+        '406':
+          description: unsupported accept header
+  "/api/v1/portfolios/{id}/holdings":
+    get:
+      summary: Fetches holdings for a portfolio
+      tags:
+      - Portfolio
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Bearer Token
+        required: true
+        schema:
+          type: string
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: holdings found
+        '404':
+          description: Portfolio not found
+        '406':
+          description: unsupported accept header
+  "/api/v1/portfolios/{id}/returns":
+    get:
+      summary: Fetches cumulative returns for a portfolio
+      tags:
+      - Portfolio
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Bearer Token
+        required: true
+        schema:
+          type: string
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: returns found
+        '404':
+          description: Portfolio not found
+        '406':
+          description: unsupported accept header
+  "/api/v1/trades":
+    post:
+      summary: Creates a trade
+      tags:
+      - Trades
+      parameters:
+      - name: Authorization
+        in: header
+        description: Bearer Token
+        required: true
+        schema:
+          type: string
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: trade created successfully
+        '422':
+          description: invalid trade parameters
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                  example: '2024-01-16'
+                price:
+                  type: number
+                  example: 100.5
+                trade_type:
+                  type: string
+                  enum:
+                  - buy
+                  - sell
+                  example: buy
+                quantity:
+                  type: integer
+                  example: 100
+                stock_id:
+                  type: integer
+                  example: 1
+              required:
+              - date
+              - price
+              - trade_type
+              - quantity
+              - stock_id
+  "/api/v1/trades/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    put:
+      summary: Updates a trade
+      tags:
+      - Trades
+      parameters:
+      - name: Authorization
+        in: header
+        description: Bearer Token
+        required: true
+        schema:
+          type: string
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: trade updated successfully
+        '404':
+          description: trade not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                  example: '2024-01-16'
+                price:
+                  type: number
+                  example: 120.0
+                trade_type:
+                  type: string
+                  enum:
+                  - buy
+                  - sell
+                  example: sell
+                quantity:
+                  type: integer
+                  example: 50
+    delete:
+      summary: Removes a trade
+      tags:
+      - Trades
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        description: Bearer Token
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: trade removed successfully
+        '404':
+          description: trade not found
+  "/api/v1/auth/sign_in":
+    post:
+      summary: Authenticate user
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '200':
+          description: user authenticated
+        '401':
+          description: invalid credentials
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+servers:
+- url: http://localhost:3000
+  variables:
+    defaultHost:
+      default: localhost:3000
