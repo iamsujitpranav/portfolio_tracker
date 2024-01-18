@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/trades', type: :request do
+RSpec.describe V1::TradesController, type: :request do
   before(:each) do
     @stock = create(:stock, :with_trades)
   end
@@ -26,6 +26,7 @@ RSpec.describe 'api/v1/trades', type: :request do
 
       security [bearerAuth: []]
       parameter name: 'Authorization', in: :header, type: :string, description: 'Bearer Token', required: true
+      let(:Authorization) {@user.create_new_auth_token['Authorization']}
 
       response '200', 'trade created successfully' do
         let(:trade) { { date: '2024-01-16', price: 100.5, trade_type: 'buy', quantity: 100, stock_id: @stock.id } }
@@ -61,7 +62,8 @@ RSpec.describe 'api/v1/trades', type: :request do
       }
       security [bearerAuth: []]
       parameter name: 'Authorization', in: :header, type: :string, description: 'Bearer Token', required: true
-    
+      let(:Authorization) {@user.create_new_auth_token['Authorization']}
+
       response '200', 'trade updated successfully' do
         let(:id) { create(:trade).id }
         let(:trade) { { price: 120.0, trade_type: 'sell', quantity: 50 } }
@@ -82,7 +84,8 @@ RSpec.describe 'api/v1/trades', type: :request do
 
       security [bearerAuth: []]
       parameter name: 'Authorization', in: :header, type: :string, description: 'Bearer Token', required: true
-    
+      let(:Authorization) {@user.create_new_auth_token['Authorization']}
+      
       response '200', 'trade removed successfully' do
         let(:id) { create(:trade).id }
 

@@ -1,6 +1,5 @@
 require 'factory_bot_rails'
 require 'simplecov'
-SimpleCov.start
 
 Rails.env = "test"
 

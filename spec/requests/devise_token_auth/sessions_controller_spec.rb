@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'devise_token_auth/sessions', type: :request do
+RSpec.describe DeviseTokenAuth::SessionsController, type: :request do
   path '/api/v1/auth/sign_in' do
     post 'Authenticate user' do
       tags 'Authentication'

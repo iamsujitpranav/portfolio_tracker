@@ -1,22 +1,26 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/portfolios', type: :request do
-  let(:user) { create(:user) }
+RSpec.describe V1::PortfoliosController, type: :request do
 
   describe 'Portfolios API' do 
 
     before(:each) do
       @portfolio = create(:portfolio, :with_stock_and_trades)
+      @user = create(:user) 
+      allow(ActionMailer::Base).to receive(:deliveries).and_return([])
+      
     end
 
     path '/api/v1/portfolios/{id}' do
       get 'Fetches a portfolio' do
+        
         tags 'Portfolio'
         produces 'application/json', 'application/xml'
         parameter name: :id, in: :path, type: :string
         
         security [bearerAuth: []]
         parameter name: 'Authorization', in: :header, type: :string, description: 'Bearer Token', required: true
+        let(:Authorization) {@user.create_new_auth_token['Authorization']}
         
 
         response '200', 'portfolio found' do
@@ -28,8 +32,16 @@ RSpec.describe 'api/v1/portfolios', type: :request do
             required: [ 'id', 'Authorization']
 
            let(:id) { @portfolio.id }
+           
 
-          run_test!
+          run_test! do
+            resp = response["message"]
+            Rails.logger.info resp.inspect
+            debugger
+            binding.pry
+            p "sdsda"
+            expect(resp.keys).to eq(["message", "status", "stocks", "trades"])
+          end
         end
 
         response '404', 'Portfolio not found' do
@@ -53,7 +65,7 @@ RSpec.describe 'api/v1/portfolios', type: :request do
           
           security [bearerAuth: []]
           parameter name: 'Authorization', in: :header, type: :string, description: 'Bearer Token', required: true
-        
+          let(:Authorization) {@user.create_new_auth_token['Authorization']}
 
           response '200', 'holdings found' do
             let(:id) { @portfolio.id }
@@ -83,7 +95,7 @@ RSpec.describe 'api/v1/portfolios', type: :request do
           
           security [bearerAuth: []]
           parameter name: 'Authorization', in: :header, type: :string, description: 'Bearer Token', required: true
-
+          let(:Authorization) {@user.create_new_auth_token['Authorization']}
   
           response '200', 'returns found' do
             let(:id) { @portfolio.id }
