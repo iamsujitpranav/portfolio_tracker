@@ -15,33 +15,29 @@ RSpec.describe V1::PortfoliosController, type: :request do
       get 'Fetches a portfolio' do
         
         tags 'Portfolio'
-        produces 'application/json', 'application/xml'
+        consumes 'application/json'
+        produces 'application/json'
+        
         parameter name: :id, in: :path, type: :string
+        parameter name: :Authorization, in: :header, type: :string, description: 'Bearer Token', required: true        
         
         security [bearerAuth: []]
-        parameter name: 'Authorization', in: :header, type: :string, description: 'Bearer Token', required: true
-        let(:Authorization) {@user.create_new_auth_token['Authorization']}
         
-
+        let(:Authorization) {@user.create_new_auth_token['Authorization']}
         response '200', 'portfolio found' do
           schema type: :object,
             properties: {
-              id: { type: :integer },
-              Authorization: {type: :string}
+              message: { type: :string },
+              status: {type: :integer},
+              stocks: {type: :object},
+              trades: {type: :object}
             },
             required: [ 'id', 'Authorization']
-
+          
            let(:id) { @portfolio.id }
            
-
-          run_test! do
-            resp = response["message"]
-            Rails.logger.info resp.inspect
-            debugger
-            binding.pry
-            p "sdsda"
-            expect(resp.keys).to eq(["message", "status", "stocks", "trades"])
-          end
+           
+          run_test!
         end
 
         response '404', 'Portfolio not found' do

@@ -27,9 +27,11 @@ RSpec.configure do |config|
             type: :http,
             scheme: :bearer,
             bearerFormat: 'JWT',
-            'X-CSRF-Token': 'VETbXiot3J5bZ1Fbqva_R6QbkfkChUZZEritGge4leo',
           }
         }
+      },
+      security: {
+        bearerAuth: []
       },
       paths: {},
       servers: [

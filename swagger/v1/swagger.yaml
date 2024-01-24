@@ -9,7 +9,8 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      X-CSRF-Token: VETbXiot3J5bZ1Fbqva_R6QbkfkChUZZEritGge4leo
+security:
+  bearerAuth: []
 paths:
   "/api/v1/portfolios/{id}":
     get:
@@ -24,7 +25,7 @@ paths:
           type: string
       - name: Authorization
         in: header
-        description: Bearer Token
+        description: Bearer Token here
         required: true
         schema:
           type: string
@@ -38,21 +39,14 @@ paths:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: integer
-                  Authorization:
+                  message:
                     type: string
-                required:
-                - id
-                - Authorization
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  id:
+                  status:
                     type: integer
-                  Authorization:
-                    type: string
+                  stocks:
+                    type: object
+                  trades:
+                    type: object
                 required:
                 - id
                 - Authorization

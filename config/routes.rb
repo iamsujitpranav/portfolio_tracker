@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   
+  root to: 'home#index'
+
   api_version(module: 'V1', path: { value: 'api/v1' }) do
     post '/auth/sign_in', to: 'authentication#sign_in'
     resources :portfolios, only: [:index, :show] do
