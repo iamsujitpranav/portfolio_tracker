@@ -33,4 +33,4 @@ jobs:
     - name: Set up credentials
       run: cp config/master.key config/credentials.yml.enc        
     - name: Run tests
-      run: rails rswag:specs:swaggerize --pattern spec/requests/**/*.rb,spec/api/**/*.rb,spec/integration/**/*.rb
+      run: rails rswag:specs:swaggerize
