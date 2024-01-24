@@ -42,6 +42,15 @@ RSpec.configure do |config|
               default: 'localhost:3000'
             }
           }
+        },
+
+        {
+          url: 'https://test-portfolio-tracker.onrender.com',
+          variables: {
+            defaultHost: {
+              default: 'https://test-portfolio-tracker.onrender.com'
+            }
+          }
         }
       ]
     }

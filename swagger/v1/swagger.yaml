@@ -25,7 +25,7 @@ paths:
           type: string
       - name: Authorization
         in: header
-        description: Bearer Token here
+        description: Bearer Token
         required: true
         schema:
           type: string
@@ -250,3 +250,7 @@ servers:
   variables:
     defaultHost:
       default: localhost:3000
+- url: https://test-portfolio-tracker.onrender.com
+  variables:
+    defaultHost:
+      default: https://test-portfolio-tracker.onrender.com
