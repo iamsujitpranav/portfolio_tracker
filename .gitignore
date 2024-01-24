@@ -28,6 +28,7 @@ storage/
 tmp/
 !/coverage/
 coverage/
+/coverage/
 /public/assets
 
 # Ignore master key for decrypting credentials and more.

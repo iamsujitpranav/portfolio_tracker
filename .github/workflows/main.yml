@@ -27,11 +27,12 @@ jobs:
         gem install bundler
         bundle install
         yarn install --check-files
+    - name: Print Gem Versions
+      run: bundle exec gem list
     - name: Create creds and  master.key
       run: |
         echo "$RAILS_MASTER_KEY" > config/master.key
         chmod 600 config/master.key
-    - name: Set up credentials
-      run: cp config/master.key config/credentials.yml.enc        
     - name: Run tests
-      run: rails rswag:specs:swaggerize
+      run: |
+        bundle exec rails rswag:specs:swaggerize
