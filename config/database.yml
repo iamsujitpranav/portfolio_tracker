@@ -83,6 +83,8 @@ test:
 #
 production:
   <<: *default
-  database: PortfolioTracker_production
-  username: PortfolioTracker
+  host: dpg-cmofup8cmk4c738rv2sg-a
+  database: portfolio_tracker_cpx5
+  username: portfolio_tracker
   password: <%= ENV["PORTFOLIOTRACKER_DATABASE_PASSWORD"] %>
+  port: 5432
