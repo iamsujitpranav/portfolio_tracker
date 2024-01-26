@@ -14,7 +14,9 @@ application up and running.
   * I have used Bearer based JWT to authenticate the system
   * I have deployed using render https://test-portfolio-tracker.onrender.com
   * I have implemented CI/CD using .github workflow for CI(continous integration) and 'render' to CD(continous deployment)
-  
+
+Follwing are necessary to setup the application
+
 * ruby "3.2.2"
 
 * rails "7.0"
