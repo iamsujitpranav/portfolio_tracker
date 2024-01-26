@@ -27,6 +27,13 @@ development:
   <<: *default
   database: portfolio_tracker_development
 
+# development:
+#   host: pg-cmofup8cmk4c738rv2sg-a.oregon-postgres.render.com
+#   database: portfolio_tracker_cpx5
+#   username: portfolio_tracker
+#   password: zVCXcNHvxQd9r44DehZUfnb4K3KSjFd7
+#   port: 5432
+
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
