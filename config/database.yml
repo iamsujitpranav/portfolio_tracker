@@ -26,12 +26,14 @@ default: &default
 development:
   <<: *default
   database: portfolio_tracker_development
-
+  host: <%= ENV.fetch('POSTGRES_HOST', 'db') %> #For docker container
+  # host: <%= ENV.fetch('POSTGRES_HOST', 'localhost') %> #For non-docker environment
+  port: <%= ENV.fetch('POSTGRES_PORT', 5432) %>
 # development:
+    # these are creds for RDBMS host. Password is hidden
 #   host: pg-cmofup8cmk4c738rv2sg-a.oregon-postgres.render.com
 #   database: portfolio_tracker_cpx5
 #   username: portfolio_tracker
-#   password: zVCXcNHvxQd9r44DehZUfnb4K3KSjFd7
 #   port: 5432
 
   # The specified database role being used to connect to postgres.

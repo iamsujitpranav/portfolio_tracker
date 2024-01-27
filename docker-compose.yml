@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      RAILS_ENV: development
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: '123456'
+      POSTGRES_DB: portfolio_tracker_development
+      REDIS_URL: redis://redis:6379/0
+    volumes: 
+      - .:/portfolio-tracker
+      # Add other volume mappings as needed for logs, etc.
+
+  redis:
+    image: redis:3.2
+
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: '123456'
+      POSTGRES_DB: portfolio_tracker_development
