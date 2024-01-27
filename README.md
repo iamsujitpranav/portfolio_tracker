@@ -46,8 +46,6 @@ Follwing are necessary to setup the application
 
 * Authorize in swagger web on the top right corner to make the api calls.
 
-=================================================================================================================================
-
 
 **UPDATE**
 
